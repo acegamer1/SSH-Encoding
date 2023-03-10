@@ -1,7 +1,4 @@
-# Assignment 5: Public Key Cryptography
-Name: Asher Etherington\
-Cruz ID: aetherin\
-Class: CSE13s
+# Public Key Cryptography
 
 ## Description:
 This program is a public/private key generator. These keys can be used to encrypt and decrypt data. The public key is used\
