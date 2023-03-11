@@ -70,15 +70,12 @@ void ss_encrypt_file(FILE *infile, FILE *outfile, const mpz_t n) {
     mpz_t m, temp;
     mpz_inits(m, temp, NULL);
     mpz_sqrt(temp, n); //temp = sqrt(n)
-    //ask if this is how to find the log
     uint8_t k = mpz_sizeinbase(temp, 2) - 1; //k = log2(temp)
     k -= 1;
-    //ask if i need to subtract 1 again
     k = k / 8;
     //make block array of size k
     uint8_t *block = (uint8_t *) malloc(k * sizeof(uint8_t));
     block[0] = 0xFF; //set zeroth byte of the block
-    //use fread()
     while (!feof(infile)) { //while still unprocessed bytes
         int j = fread(&block[1], sizeof(uint8_t), k - 1, infile);
         mpz_import(m, j + 1, 1, sizeof(block[0]), 1, 0, block); //create m
@@ -98,10 +95,8 @@ void ss_decrypt_file(FILE *infile, FILE *outfile, const mpz_t d, const mpz_t pq)
     //create block size
     mpz_t c, m, temp;
     mpz_inits(c, m, temp, NULL);
-    //ask if this is how to find the log
     mpz_set(temp, pq); //temp = pq
     uint8_t k = mpz_sizeinbase(temp, 2) - 1; //k = log2(temp)
-    //ask if i need to subtract 1 again
     k -= 1;
     k = k / 8;
 
@@ -111,7 +106,6 @@ void ss_decrypt_file(FILE *infile, FILE *outfile, const mpz_t d, const mpz_t pq)
     while (!feof(infile)) {
         gmp_fscanf(infile, "%ZX\n", c); //scan in a hexstring and save as c
         ss_decrypt(m, c, d, pq); //m = decrypted c
-        //learn more about export
         uint64_t j = 0;
         mpz_export(block, &j, 1, sizeof(uint8_t), 1, 0, m); //generate array with m
         fwrite(&block[1], j - 1, sizeof(uint8_t), outfile);

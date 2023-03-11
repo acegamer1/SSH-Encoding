@@ -68,7 +68,6 @@ void pow_mod(mpz_t o, const mpz_t a, const mpz_t d, const mpz_t n) {
     mpz_clears(v, p, i, two, NULL); //clear all memory
 }
 
-//ask how to test this using the state variable
 bool is_prime(const mpz_t n, uint64_t iters) {
     if (mpz_cmp_ui(n, 4) < 0) {
         return (mpz_cmp_ui(n, 1) > 0);

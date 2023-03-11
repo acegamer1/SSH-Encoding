@@ -63,10 +63,8 @@ UNIX epoch, given by time(NULL)).\n\
     ss_write_priv(pq, priv, inpvfile); //write private key
     if (verbose) {
         printf("user = %s\n", username);
-        //print signature?
         gmp_printf("p (%u bits) = %Zd\nq (%u bits) = %Zd\nn (%u bits) = %Zd\n",
             mpz_sizeinbase(p, 2), p, mpz_sizeinbase(q, 2), q, mpz_sizeinbase(pub, 2), pub);
-        //private exponent?
         gmp_printf("pq (%u bits) = %Zd\n", mpz_sizeinbase(pq, 2), pq);
         gmp_printf("d (%u bits) = %Zd\n", mpz_sizeinbase(priv, 2), priv);
     }
